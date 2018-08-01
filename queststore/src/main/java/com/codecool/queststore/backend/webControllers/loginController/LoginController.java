@@ -1,6 +1,7 @@
 package com.codecool.queststore.backend.webControllers.loginController;
 
 import com.codecool.queststore.backend.loginManager.LoginProcessHandler;
+import com.codecool.queststore.backend.loginManager.PasswordManager;
 import com.codecool.queststore.backend.webControllers.AbstractHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -37,7 +38,8 @@ public class LoginController extends AbstractHandler implements HttpHandler {
             Map inputs = readFormData(exchange);
             String login = (String) inputs.get("login");
             String password = (String) inputs.get("password");
-            String loginResult = new LoginProcessHandler().loginProcess(login, password);
+            PasswordManager passwordManager = new PasswordManager();
+            String loginResult = new LoginProcessHandler().loginProcess(login, password, passwordManager);
             if (validLoginResult(loginResult)) {
                 getSessionIdContainer().add(sessionId, login);
                 redirectToLocation(exchange, "/" + loginResult);

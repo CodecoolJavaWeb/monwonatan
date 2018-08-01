@@ -14,8 +14,8 @@ public class LoginProcessHandler {
         this.loginDAO = new LoginDAO();
     }
 
-    public String loginProcess(String login, String password) {
-        PasswordManager passwordManager = new PasswordManager();
+    public String loginProcess(String login, String password, PasswordManager passwordManager) {
+//        PasswordManager passwordManager = new PasswordManager();
         try {
             String hashedPassword = loginDAO.getPasswordBy(login);
             if (passwordManager.validatePassword(password, hashedPassword)) {

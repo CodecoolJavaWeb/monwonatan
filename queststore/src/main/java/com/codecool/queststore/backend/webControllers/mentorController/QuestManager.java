@@ -1,9 +1,6 @@
 package com.codecool.queststore.backend.webControllers.mentorController;
 
 import com.codecool.queststore.backend.dao.QuestDAO;
-import com.codecool.queststore.backend.dao.QuestDAO;
-import com.codecool.queststore.backend.model.Classroom;
-import com.codecool.queststore.backend.model.Quest;
 import com.codecool.queststore.backend.model.Quest;
 import com.codecool.queststore.backend.webControllers.AbstractHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -18,7 +15,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 

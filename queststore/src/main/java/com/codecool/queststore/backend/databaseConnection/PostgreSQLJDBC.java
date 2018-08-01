@@ -11,8 +11,8 @@ class PostgreSQLJDBC {
         Connection c;
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/queststore",
-                    "testuser", "test123");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/monwonatan",
+                    "postgres", "dima1234");
             connection = c;
         } catch (Exception e) {
             e.printStackTrace();
