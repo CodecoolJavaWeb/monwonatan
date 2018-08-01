@@ -37,7 +37,7 @@ CREATE TABLE Admin_type (
 CREATE TABLE Artifact (
     artifact_id SERIAL PRIMARY KEY,
     available_for_groups BOOLEAN DEFAULT FALSE,
-    name VARCHAR(100) NOT NULL,
+    _name VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
     price INT NOT NULL
 );
@@ -51,20 +51,20 @@ CREATE TABLE Backpack (
 CREATE TABLE Quest (
     quest_id SERIAL PRIMARY KEY,
     available_for_groups BIT DEFAULT '0',
-    name VARCHAR(100) NOT NULL,
+    _name VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
     value INT NOT NULL
 );
 
 CREATE TABLE Classroom (
     classroom_id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
+    _name VARCHAR(100),
     description TEXT NOT NULL
 );
 
-INSERT INTO classroom (name, description) VALUES ('2017.1', 'Module advanced');
-INSERT INTO artifact (available_for_groups, name, description, price) VALUES (default, 'artifact', 'description', 200);
-INSERT INTO quest (name, description, value) VALUES ('Stuff', 'Do some stuff', 200);
+INSERT INTO classroom (_name, description) VALUES ('2017.1', 'Module advanced');
+INSERT INTO artifact (available_for_groups, _name, description, price) VALUES (default, 'artifact', 'description', 200);
+INSERT INTO Quest (_name, description, value) VALUES ('Stuff', 'Do some stuff', 200);
 INSERT INTO Experience_Level (description, required_coins) VALUES ('PHP programmer', 0);
 
 INSERT INTO user_type (first_name, last_name, login, password, classroom_id, type) VALUES ('Jan', 'Kowalski', 'admin',
