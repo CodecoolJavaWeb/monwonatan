@@ -13,11 +13,15 @@ import org.jtwig.JtwigTemplate;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 public class AdminEditMentors extends AbstractHandler implements HttpHandler {
+
+    private Connection c;
+
     @Override
     public void handle(HttpExchange exchange) {
         String[] uriParts = exchange.getRequestURI().toString().split("/");
@@ -86,7 +90,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
         }
 
         try {
-            Mentor mentor = new MentorDAO().loadMentor(mentorLogin);
+            Mentor mentor = new MentorDAO(c).loadMentor(mentorLogin);
             sendTemplateResponseSingleMentor(exchange, "admin-edit-mentor", mentor);
         } catch (SQLException e) {
             // Error occurred in database
@@ -108,7 +112,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
             redirectToLocation(exchange, "/admin/classroom");
         }
         try {
-            Mentor mentor = new MentorDAO().loadMentor(mentorLogin);
+            Mentor mentor = new MentorDAO(c).loadMentor(mentorLogin);
             sendTemplateResponseSingleMentor(exchange, "admin-delete-mentor", mentor);
         } catch (SQLException e) {
             // Error occurred in database
@@ -130,13 +134,13 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
             String password2 = inputs.get("password2");
             String email = inputs.get("email");
             String address = inputs.get("address");
-            Mentor mentor = new MentorDAO().loadMentor(login);
+            Mentor mentor = new MentorDAO(c).loadMentor(login);
             if (password == null && password2 == null) {
                 mentor.setFirstName(firstName);
                 mentor.setLastName(lastName);
                 mentor.setEmail(email);
                 mentor.setAddress(address);
-                new MentorDAO().updateMentor(mentor);
+                new MentorDAO(c).updateMentor(mentor);
                 redirectToLocation(exchange, "/admin/mentors");
             } else if (password.equals(password2)) {
                 try {
@@ -144,7 +148,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
                     mentor.setFirstName(firstName);
                     mentor.setLastName(lastName);
                     mentor.setEmail(email);
-                    new MentorDAO().updateMentor(mentor);
+                    new MentorDAO(c).updateMentor(mentor);
                     redirectToLocation(exchange, "/admin/mentors");
                 } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
                     redirectToLocation(exchange, "/admin/index");
@@ -171,7 +175,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
         try {
             if (password.equals(repeatedPassword)) {
                 String hashedPassword = new PasswordManager().generateStorngPasswordHash(password);
-                new MentorDAO().createMentor(firstName, lastName, login, hashedPassword, classroomId, email, address);
+                new MentorDAO(c).createMentor(firstName, lastName, login, hashedPassword, classroomId, email, address);
             }
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             redirectToLocation(exchange, "/admin/index");
@@ -182,7 +186,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
 
     private void submitMentorDeletionPage(HttpExchange exchange) {
         String mentorLogin = getMentorLogin(exchange);
-        new MentorDAO().deleteMentor(mentorLogin);
+        new MentorDAO(c).deleteMentor(mentorLogin);
         redirectToLocation(exchange, "/admin/mentors");
     }
 
@@ -196,7 +200,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
     }
 
     private void sendTemplateResponseAllMentors(HttpExchange exchange, String templateName) {
-        List<Mentor> mentors = new MentorDAO().loadAllMentors();
+        List<Mentor> mentors = new MentorDAO(c).loadAllMentors();
 
         JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format("templates/%s.jtwig", templateName));
         JtwigModel model = JtwigModel.newModel();

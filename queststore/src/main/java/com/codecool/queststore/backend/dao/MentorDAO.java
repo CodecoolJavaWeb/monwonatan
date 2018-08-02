@@ -12,6 +12,14 @@ import java.util.List;
 
 public class MentorDAO {
 
+    private Connection c;
+    private static SQLQueryHandler sqlQueryInstance;
+
+    public MentorDAO(Connection connection) {
+        this.c = connection;
+        this.sqlQueryInstance = SQLQueryHandler.getInstance();
+    }
+
     private final String TYPE = "mentor";
 
     public boolean createMentor(String firstName, String lastName, String login, String password,
@@ -23,7 +31,7 @@ public class MentorDAO {
             String mentorTableQuery = "INSERT INTO mentor_type (login, email, address) " +
                     "VALUES (?, ?, ?);";
 
-            Connection c = SQLQueryHandler.getInstance().getConnection();
+//            Connection c = SQLQueryHandler.getInstance().getConnection();
 
             PreparedStatement userStatement = c.prepareStatement(userTableQuery);
             userStatement.setString(1, firstName);
@@ -40,7 +48,7 @@ public class MentorDAO {
 
             String query = userStatement.toString() + "; " + mentorStatement.toString();
 
-            SQLQueryHandler.getInstance().executeQuery(query);
+            sqlQueryInstance.executeQuery(query);
 
             return true;
         }
@@ -70,7 +78,7 @@ public class MentorDAO {
                     "classroom_id = ?, type = ? WHERE login = ?;";
             String mentorTableQuery = "UPDATE mentor_type SET email = ?, address = ? WHERE login = ?;";
 
-            Connection c = SQLQueryHandler.getInstance().getConnection();
+//            Connection c = SQLQueryHandler.getInstance().getConnection();
 
             PreparedStatement userStatement = c.prepareStatement(userTableQuery);
             userStatement.setString(1, firstName);
@@ -87,7 +95,7 @@ public class MentorDAO {
 
             String query = userStatement.toString() + "; " + mentorStatement.toString();
 
-            SQLQueryHandler.getInstance().executeQuery(query);
+            sqlQueryInstance.executeQuery(query);
             return true;
         }
         catch (SQLException e) {
@@ -98,13 +106,13 @@ public class MentorDAO {
     public Mentor loadMentor(String login) throws SQLException {
         String query = "SELECT * FROM user_type LEFT JOIN mentor_type ON (user_type.login = mentor_type.login) " +
                 "WHERE mentor_type.login ILIKE ?";
-        Connection c = SQLQueryHandler.getInstance().getConnection();
+//        Connection c = SQLQueryHandler.getInstance().getConnection();
 
         PreparedStatement statement = c.prepareStatement(query);
         statement.setString(1, login);
         query = statement.toString();
 
-        ResultSet resultSet = SQLQueryHandler.getInstance().executeQuery(query);
+        ResultSet resultSet = sqlQueryInstance.executeQuery(query);
         return extractAndCreate(resultSet);
     }
 
@@ -137,7 +145,7 @@ public class MentorDAO {
 
         List<Mentor> allMentors = new ArrayList<>();
         String query = "SELECT login FROM mentor_type;";
-        ResultSet logins = SQLQueryHandler.getInstance().executeQuery(query);
+        ResultSet logins = sqlQueryInstance.executeQuery(query);
 
         try {
             while (logins.next()) {
@@ -156,13 +164,13 @@ public class MentorDAO {
 
     public void deleteMentor(String mentorLogin) {
         String query = "DELETE FROM user_type WHERE login = ?;";
-        Connection c = SQLQueryHandler.getInstance().getConnection();
+//        Connection c = SQLQueryHandler.getInstance().getConnection();
 
         try {
             PreparedStatement removeMentor = c.prepareStatement(query);
             removeMentor.setString(1, mentorLogin);
             query = removeMentor.toString();
-            SQLQueryHandler.getInstance().executeQuery(query);
+            sqlQueryInstance.executeQuery(query);
         } catch (SQLException e) {}
     }
 }

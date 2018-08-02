@@ -16,11 +16,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MentorProfile extends AbstractHandler implements HttpHandler {
+
+    private Connection c;
+
     @Override
     public void handle(HttpExchange exchange) {
         String method = exchange.getRequestMethod();
@@ -42,7 +46,7 @@ public class MentorProfile extends AbstractHandler implements HttpHandler {
     private void sendTemplateResponseProfile(HttpExchange exchange, String templateName, String sessionId) {
         try {
             String login = getSessionIdContainer().getUserLogin(sessionId);
-            Mentor mentor = new MentorDAO().loadMentor(login);
+            Mentor mentor = new MentorDAO(c).loadMentor(login);
             JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format("templates/%s.jtwig", templateName));
             JtwigModel model = JtwigModel.newModel();
             model.with("firstname", mentor.getFirstName());
@@ -58,7 +62,7 @@ public class MentorProfile extends AbstractHandler implements HttpHandler {
 
     private Mentor loadMentorBySessionID(String sessionID) throws SQLException {
         String login = getSessionIdContainer().getUserLogin(sessionID);
-        Mentor mentor = new MentorDAO().loadMentor(login);
+        Mentor mentor = new MentorDAO(c).loadMentor(login);
         return mentor;
     }
 
@@ -76,7 +80,7 @@ public class MentorProfile extends AbstractHandler implements HttpHandler {
             mentor.setLastName(lastName);
             mentor.setEmail(email);
             mentor.setAddress(address);
-            new MentorDAO().updateMentor(mentor);
+            new MentorDAO(c).updateMentor(mentor);
             redirectToLocation(exchange, "/mentor/profile");
         } else if (password.equals(password2)) {
             try {
@@ -85,7 +89,7 @@ public class MentorProfile extends AbstractHandler implements HttpHandler {
                 mentor.setLastName(lastName);
                 mentor.setEmail(email);
                 mentor.setAddress(address);
-                new MentorDAO().updateMentor(mentor);
+                new MentorDAO(c).updateMentor(mentor);
                 redirectToLocation(exchange, "/mentor/profile");
             } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
                 redirectToLocation(exchange, "/mentor/index");
