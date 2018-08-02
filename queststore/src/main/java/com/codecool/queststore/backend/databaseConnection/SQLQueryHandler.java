@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class SQLQueryHandler {
 
-    private static SQLQueryHandler ourInstance;
+    public static SQLQueryHandler ourInstance;
     private com.codecool.queststore.backend.databaseConnection.PostgreSQLJDBC connectionEstablisher;
     private Connection connection;
 

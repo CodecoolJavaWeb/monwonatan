@@ -4,7 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.codecool.queststore.backend.webControllers.AbstractHandler;
 
-public class StudentController  extends AbstractHandler implements HttpHandler {
+public class StudentController extends AbstractHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {

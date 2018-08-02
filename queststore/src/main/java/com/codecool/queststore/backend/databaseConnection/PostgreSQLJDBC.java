@@ -3,7 +3,7 @@ package com.codecool.queststore.backend.databaseConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-class PostgreSQLJDBC {
+public class PostgreSQLJDBC {
 
     private Connection connection;
 
@@ -11,8 +11,8 @@ class PostgreSQLJDBC {
         Connection c;
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/queststore",
-                    "testuser", "test123");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",
+                    "polikkox", "1234");
             connection = c;
         } catch (Exception e) {
             e.printStackTrace();
@@ -21,7 +21,7 @@ class PostgreSQLJDBC {
         }
     }
 
-    Connection getConnection() {
+    public Connection getConnection() {
         return connection;
     }
 }
