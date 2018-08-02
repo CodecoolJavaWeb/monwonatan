@@ -15,9 +15,9 @@ import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.when;
 
 //@RunWith(MockitoJUnitRunner.class)
 class SQLQueryHandlerTest {
@@ -37,8 +37,8 @@ class SQLQueryHandlerTest {
     @Test
     public void testGetConnection() throws SQLException {
 
-        when(mockConnection.createStatement()).thenReturn(mockStatement);
-        when(mockConnection.createStatement().executeQuery(any())).thenReturn(mockResultSet);
+        doReturn(mockStatement).when(mockConnection).createStatement();
+        doReturn(mockResultSet).when(mockStatement).executeQuery(any());
         ResultSet value = queryHandler.executeQuery("123465");
         assertEquals(mockResultSet, value);
         verify(mockConnection.createStatement(), times(1));
