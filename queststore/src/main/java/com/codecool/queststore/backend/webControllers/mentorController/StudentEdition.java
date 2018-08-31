@@ -3,6 +3,7 @@ package com.codecool.queststore.backend.webControllers.mentorController;
 import com.codecool.queststore.backend.dao.ClassroomDAO;
 import com.codecool.queststore.backend.dao.QuestDAO;
 import com.codecool.queststore.backend.dao.StudentDAO;
+import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
 import com.codecool.queststore.backend.model.Classroom;
 import com.codecool.queststore.backend.model.Quest;
 import com.codecool.queststore.backend.model.Student;
@@ -17,12 +18,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class StudentEdition extends AbstractHandler implements HttpHandler {
+
+    private Connection c;
+    private SQLQueryHandler sqlHandler;
+
     @Override
     public void handle(HttpExchange exchange) {
         String method = exchange.getRequestMethod();
@@ -42,7 +48,7 @@ public class StudentEdition extends AbstractHandler implements HttpHandler {
     private void sendTemplateResponseWithTable(HttpExchange exchange, String templateName) {
         List<Student> students = new StudentDAO().loadAllStudents();
         List<Classroom> classrooms = new ClassroomDAO().loadAllClassrooms();
-        List<Quest> quests = new QuestDAO().loadAllQuests();
+        List<Quest> quests = new QuestDAO(c,sqlHandler).loadAllQuests();
         JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format("templates/%s.jtwig", templateName));
         JtwigModel model = JtwigModel.newModel();
         model.with("students", students);

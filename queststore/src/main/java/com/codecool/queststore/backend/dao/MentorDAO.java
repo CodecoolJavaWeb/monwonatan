@@ -13,11 +13,11 @@ import java.util.List;
 public class MentorDAO {
 
     private Connection c;
-    private static SQLQueryHandler sqlQueryInstance;
+    private SQLQueryHandler sqlQueryHandler;
 
-    public MentorDAO(Connection connection) {
+    public MentorDAO(Connection connection, SQLQueryHandler sqlQueryHandler) {
         this.c = connection;
-        this.sqlQueryInstance = SQLQueryHandler.getInstance();
+        this.sqlQueryHandler = sqlQueryHandler;
     }
 
     private final String TYPE = "mentor";
@@ -48,7 +48,7 @@ public class MentorDAO {
 
             String query = userStatement.toString() + "; " + mentorStatement.toString();
 
-            sqlQueryInstance.executeQuery(query);
+            sqlQueryHandler.getInstance().executeQuery(query);
 
             return true;
         }
@@ -95,7 +95,7 @@ public class MentorDAO {
 
             String query = userStatement.toString() + "; " + mentorStatement.toString();
 
-            sqlQueryInstance.executeQuery(query);
+            sqlQueryHandler.getInstance().executeQuery(query);
             return true;
         }
         catch (SQLException e) {
@@ -112,7 +112,7 @@ public class MentorDAO {
         statement.setString(1, login);
         query = statement.toString();
 
-        ResultSet resultSet = sqlQueryInstance.executeQuery(query);
+        ResultSet resultSet = sqlQueryHandler.getInstance().executeQuery(query);
         return extractAndCreate(resultSet);
     }
 
@@ -141,11 +141,11 @@ public class MentorDAO {
         }
     }
 
-    public List<Mentor> loadAllMentors() {
+    public List<Mentor> loadAllMentors() throws SQLException {
 
         List<Mentor> allMentors = new ArrayList<>();
         String query = "SELECT login FROM mentor_type;";
-        ResultSet logins = sqlQueryInstance.executeQuery(query);
+        ResultSet logins = SQLQueryHandler.getInstance().executeQuery(query);
 
         try {
             while (logins.next()) {
@@ -170,7 +170,7 @@ public class MentorDAO {
             PreparedStatement removeMentor = c.prepareStatement(query);
             removeMentor.setString(1, mentorLogin);
             query = removeMentor.toString();
-            sqlQueryInstance.executeQuery(query);
+            sqlQueryHandler.getInstance().executeQuery(query);
         } catch (SQLException e) {}
     }
 }

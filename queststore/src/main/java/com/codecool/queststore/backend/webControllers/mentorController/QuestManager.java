@@ -1,6 +1,7 @@
 package com.codecool.queststore.backend.webControllers.mentorController;
 
 import com.codecool.queststore.backend.dao.QuestDAO;
+import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
 import com.codecool.queststore.backend.model.Quest;
 import com.codecool.queststore.backend.webControllers.AbstractHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -13,12 +14,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class QuestManager extends AbstractHandler implements HttpHandler {
+
+    private Connection c;
+    private SQLQueryHandler sqlHandler;
+
     @Override
     public void handle(HttpExchange exchange) {
         String method = exchange.getRequestMethod();
@@ -67,13 +73,13 @@ public class QuestManager extends AbstractHandler implements HttpHandler {
             String name = inputs.get("name");
             String description = inputs.get("description");
             int value = Integer.valueOf(inputs.get("value"));
-            QuestDAO dao = new QuestDAO();
+            QuestDAO dao = new QuestDAO(c,sqlHandler);
             dao.createQuest(name, description, value);
             redirectToLocation(exchange, "/mentor/quest_manager");
     }
 
     private void sendTemplateResponseWithTable(HttpExchange exchange, String templateName) {
-        List<Quest> quests = new QuestDAO().loadAllQuests();
+        List<Quest> quests = new QuestDAO(c,sqlHandler).loadAllQuests();
         JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format("templates/%s.jtwig", templateName));
         JtwigModel model = JtwigModel.newModel();
         model.with("quests", quests);
@@ -90,12 +96,12 @@ public class QuestManager extends AbstractHandler implements HttpHandler {
         int value = Integer.parseInt((String) inputs.get("value"));
 
         try {
-            Quest quest = new QuestDAO().loadQuest(oldName);
+            Quest quest = new QuestDAO(c,sqlHandler).loadQuest(oldName);
             quest.setName(newName);
             quest.setDescription(description);
             quest.setValue(value);
 
-            new QuestDAO().updateQuest(quest);
+            new QuestDAO(c,sqlHandler).updateQuest(quest);
             redirectToLocation(exchange, "/mentor/quest_manager");
         }
         catch (SQLException e) {

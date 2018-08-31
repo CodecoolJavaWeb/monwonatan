@@ -1,6 +1,7 @@
 package com.codecool.queststore.backend.webControllers.mentorController;
 
 import com.codecool.queststore.backend.dao.MentorDAO;
+import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
 import com.codecool.queststore.backend.model.Mentor;
 import com.codecool.queststore.backend.webControllers.AbstractHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -13,12 +14,13 @@ import java.sql.SQLException;
 public class MentorIndex extends AbstractHandler implements HttpHandler {
 
     private Connection c;
+    private SQLQueryHandler sqlQueryHandler;
 
     @Override
     public void handle(HttpExchange exchange) {
         try {
             String login = getLoginFromExchange(exchange);
-            Mentor mentor = new MentorDAO(c).loadMentor(login);
+            Mentor mentor = new MentorDAO(c, sqlQueryHandler).loadMentor(login);
             sendTemplateResponseIndex(exchange, "mentorindex", "Mentor Home", "Mentor's", mentor.getFirstName(), mentor.getLastName());
         }
         catch (SQLException e) {

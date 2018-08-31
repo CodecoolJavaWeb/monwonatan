@@ -13,9 +13,17 @@ import java.util.List;
 
 public class QuestDAO {
 
+    private Connection c;
+    private SQLQueryHandler sqlHandler;
+
+    public QuestDAO(Connection connection, SQLQueryHandler sqlHandler) {
+        this.c = connection;
+        this.sqlHandler = sqlHandler;
+    }
+
     public boolean createQuest(String name, String description, int value) {
         try {
-            Connection c = SQLQueryHandler.getInstance().getConnection();
+//            Connection c = SQLQueryHandler.getInstance().getConnection();
             String query = "INSERT INTO quest (name, description, value) " +
                     "VALUES (?, ?, ?);";
             PreparedStatement statement = c.prepareStatement(query);
@@ -32,7 +40,7 @@ public class QuestDAO {
     }
 
     public Quest loadQuest(int id) throws SQLException {
-        Connection c = SQLQueryHandler.getInstance().getConnection();
+//        Connection c = SQLQueryHandler.getInstance().getConnection();
 
         String query = "SELECT * FROM quest WHERE quest_id = ?";
         PreparedStatement statement = c.prepareStatement(query);
@@ -47,7 +55,7 @@ public class QuestDAO {
     }
 
     public Quest loadQuest(String name) throws SQLException {
-        Connection c = SQLQueryHandler.getInstance().getConnection();
+//        Connection c = SQLQueryHandler.getInstance().getConnection();
 
         String query = "SELECT * FROM quest WHERE name = ?";
         PreparedStatement statement = c.prepareStatement(query);
@@ -72,7 +80,7 @@ public class QuestDAO {
 
     public boolean updateQuest(int id, String name, String description, int value) {
         try {
-            Connection c = SQLQueryHandler.getInstance().getConnection();
+//            Connection c = SQLQueryHandler.getInstance().getConnection();
             String query = "UPDATE quest SET name = ?, description = ?, value = ? " +
                     "WHERE quest_id = ?";
             PreparedStatement statement = c.prepareStatement(query);
@@ -112,7 +120,7 @@ public class QuestDAO {
 
     public void deleteQuest(int questID) {
         String query = "DELETE FROM quest WHERE quest_id = ?;";
-        Connection c = SQLQueryHandler.getInstance().getConnection();
+//        Connection c = SQLQueryHandler.getInstance().getConnection();
 
         try {
             PreparedStatement removeQuest = c.prepareStatement(query);

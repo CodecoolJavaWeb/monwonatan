@@ -2,6 +2,7 @@ package com.codecool.queststore.backend.webControllers.adminController;
 
 import com.codecool.queststore.backend.dao.ClassroomDAO;
 import com.codecool.queststore.backend.dao.MentorDAO;
+import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
 import com.codecool.queststore.backend.loginManager.PasswordManager;
 import com.codecool.queststore.backend.model.Classroom;
 import com.codecool.queststore.backend.model.Mentor;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class AdminEditMentors extends AbstractHandler implements HttpHandler {
 
     private Connection c;
+    private SQLQueryHandler sqlQueryHandler;
 
     @Override
     public void handle(HttpExchange exchange) {
@@ -28,7 +30,11 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
 
         if (uriParts.length == 3) {
             // "/admin/mentors"
-            sendTemplateResponseAllMentors(exchange, "admin-manage-mentors");
+            try {
+                sendTemplateResponseAllMentors(exchange, "admin-manage-mentors");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } else {
 
             // "/admin/classroom/(action)"
@@ -90,7 +96,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
         }
 
         try {
-            Mentor mentor = new MentorDAO(c).loadMentor(mentorLogin);
+            Mentor mentor = new MentorDAO(c, sqlQueryHandler).loadMentor(mentorLogin);
             sendTemplateResponseSingleMentor(exchange, "admin-edit-mentor", mentor);
         } catch (SQLException e) {
             // Error occurred in database
@@ -112,7 +118,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
             redirectToLocation(exchange, "/admin/classroom");
         }
         try {
-            Mentor mentor = new MentorDAO(c).loadMentor(mentorLogin);
+            Mentor mentor = new MentorDAO(c, sqlQueryHandler).loadMentor(mentorLogin);
             sendTemplateResponseSingleMentor(exchange, "admin-delete-mentor", mentor);
         } catch (SQLException e) {
             // Error occurred in database
@@ -134,13 +140,13 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
             String password2 = inputs.get("password2");
             String email = inputs.get("email");
             String address = inputs.get("address");
-            Mentor mentor = new MentorDAO(c).loadMentor(login);
+            Mentor mentor = new MentorDAO(c, sqlQueryHandler).loadMentor(login);
             if (password == null && password2 == null) {
                 mentor.setFirstName(firstName);
                 mentor.setLastName(lastName);
                 mentor.setEmail(email);
                 mentor.setAddress(address);
-                new MentorDAO(c).updateMentor(mentor);
+                new MentorDAO(c, sqlQueryHandler).updateMentor(mentor);
                 redirectToLocation(exchange, "/admin/mentors");
             } else if (password.equals(password2)) {
                 try {
@@ -148,7 +154,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
                     mentor.setFirstName(firstName);
                     mentor.setLastName(lastName);
                     mentor.setEmail(email);
-                    new MentorDAO(c).updateMentor(mentor);
+                    new MentorDAO(c, sqlQueryHandler).updateMentor(mentor);
                     redirectToLocation(exchange, "/admin/mentors");
                 } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
                     redirectToLocation(exchange, "/admin/index");
@@ -175,7 +181,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
         try {
             if (password.equals(repeatedPassword)) {
                 String hashedPassword = new PasswordManager().generateStorngPasswordHash(password);
-                new MentorDAO(c).createMentor(firstName, lastName, login, hashedPassword, classroomId, email, address);
+                new MentorDAO(c, sqlQueryHandler).createMentor(firstName, lastName, login, hashedPassword, classroomId, email, address);
             }
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             redirectToLocation(exchange, "/admin/index");
@@ -186,7 +192,7 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
 
     private void submitMentorDeletionPage(HttpExchange exchange) {
         String mentorLogin = getMentorLogin(exchange);
-        new MentorDAO(c).deleteMentor(mentorLogin);
+        new MentorDAO(c, sqlQueryHandler).deleteMentor(mentorLogin);
         redirectToLocation(exchange, "/admin/mentors");
     }
 
@@ -199,8 +205,8 @@ public class AdminEditMentors extends AbstractHandler implements HttpHandler {
         sendResponse(exchange, response);
     }
 
-    private void sendTemplateResponseAllMentors(HttpExchange exchange, String templateName) {
-        List<Mentor> mentors = new MentorDAO(c).loadAllMentors();
+    private void sendTemplateResponseAllMentors(HttpExchange exchange, String templateName) throws SQLException {
+        List<Mentor> mentors = new MentorDAO(c, sqlQueryHandler).loadAllMentors();
 
         JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format("templates/%s.jtwig", templateName));
         JtwigModel model = JtwigModel.newModel();

@@ -1,6 +1,7 @@
 package com.codecool.queststore.backend.webControllers.mentorController;
 
 import com.codecool.queststore.backend.dao.MentorDAO;
+import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
 import com.codecool.queststore.backend.loginManager.PasswordManager;
 import com.codecool.queststore.backend.model.Mentor;
 import com.codecool.queststore.backend.webControllers.AbstractHandler;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class MentorProfile extends AbstractHandler implements HttpHandler {
 
     private Connection c;
+    private SQLQueryHandler sqlQueryHandler;
 
     @Override
     public void handle(HttpExchange exchange) {
@@ -46,7 +48,7 @@ public class MentorProfile extends AbstractHandler implements HttpHandler {
     private void sendTemplateResponseProfile(HttpExchange exchange, String templateName, String sessionId) {
         try {
             String login = getSessionIdContainer().getUserLogin(sessionId);
-            Mentor mentor = new MentorDAO(c).loadMentor(login);
+            Mentor mentor = new MentorDAO(c, sqlQueryHandler).loadMentor(login);
             JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format("templates/%s.jtwig", templateName));
             JtwigModel model = JtwigModel.newModel();
             model.with("firstname", mentor.getFirstName());
@@ -62,7 +64,7 @@ public class MentorProfile extends AbstractHandler implements HttpHandler {
 
     private Mentor loadMentorBySessionID(String sessionID) throws SQLException {
         String login = getSessionIdContainer().getUserLogin(sessionID);
-        Mentor mentor = new MentorDAO(c).loadMentor(login);
+        Mentor mentor = new MentorDAO(c, sqlQueryHandler).loadMentor(login);
         return mentor;
     }
 
@@ -80,7 +82,7 @@ public class MentorProfile extends AbstractHandler implements HttpHandler {
             mentor.setLastName(lastName);
             mentor.setEmail(email);
             mentor.setAddress(address);
-            new MentorDAO(c).updateMentor(mentor);
+            new MentorDAO(c, sqlQueryHandler).updateMentor(mentor);
             redirectToLocation(exchange, "/mentor/profile");
         } else if (password.equals(password2)) {
             try {
@@ -89,7 +91,7 @@ public class MentorProfile extends AbstractHandler implements HttpHandler {
                 mentor.setLastName(lastName);
                 mentor.setEmail(email);
                 mentor.setAddress(address);
-                new MentorDAO(c).updateMentor(mentor);
+                new MentorDAO(c, sqlQueryHandler).updateMentor(mentor);
                 redirectToLocation(exchange, "/mentor/profile");
             } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
                 redirectToLocation(exchange, "/mentor/index");
