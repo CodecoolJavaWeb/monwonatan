@@ -63,7 +63,7 @@ public class StudentDAO {
         int coins_current=0;
         int coins_total=0;
 
-    //    Connection c = SQLQueryHandler.getInstance().getConnection();
+        Connection c = SQLQueryHandler.getInstance().getConnection();
 
         String userQuery = "SELECT * FROM user_type WHERE login = ?";
         PreparedStatement userStatement = c.prepareStatement(userQuery);

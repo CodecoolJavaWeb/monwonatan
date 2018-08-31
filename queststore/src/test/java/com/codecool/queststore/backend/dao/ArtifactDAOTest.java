@@ -64,6 +64,7 @@ class ArtifactDAOTest {
         when(mockResultSet.getString("name")).thenReturn("Dragon");
         when(mockResultSet.getString("description")).thenReturn("something");
         when(mockResultSet.getInt("price")).thenReturn(1000);
+        artifactDAO.loadArtifact(1);
 
         assertEquals(artifact.getName(), mockResultSet.getString("name"));
 

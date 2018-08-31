@@ -1,10 +1,7 @@
 package com.codecool.queststore.backend.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
 import com.codecool.queststore.backend.databaseConnection.PostgreSQLJDBC;
 import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
-import com.codecool.queststore.backend.model.Artifact;
-import com.codecool.queststore.backend.model.Backpack;
 import com.codecool.queststore.backend.model.Student;
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +57,6 @@ class StudentDAOTest {
         when(mockSqlQueryHandler.executeQuery(mockPreparedStatement.toString())).thenReturn(mockResultSet);
         when(mockResultSet.getString("first_name")).thenReturn("Adam");
         when(mockResultSet.getString("last_name")).thenReturn("Kowalski");
-
         assertEquals(student.getFirstName(), mockResultSet.getString("first_name"));
     }
 }
