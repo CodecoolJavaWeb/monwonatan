@@ -14,6 +14,16 @@ public class StudentDAO {
 
     private final String TYPE = "student";
 
+    Connection c;
+    SQLQueryHandler sqlQueryHandler;
+    //Add Constructor with Connection & SQLQueryHandler as a parameters to inject mocked
+    //object while testing.
+    public StudentDAO(Connection connection, SQLQueryHandler sqlQueryHandler) {
+        this.c = connection;
+        this.sqlQueryHandler = sqlQueryHandler;
+    }
+
+    public StudentDAO(){}
     public boolean createStudent(String firstName, String lastName, String login, String password,
                                  int classId) {
         try {
@@ -58,7 +68,7 @@ public class StudentDAO {
         String userQuery = "SELECT * FROM user_type WHERE login = ?";
         PreparedStatement userStatement = c.prepareStatement(userQuery);
         userStatement.setString(1, login);
-        ResultSet userResultSet = SQLQueryHandler.getInstance().executeQuery(userStatement.toString());
+        ResultSet userResultSet = sqlQueryHandler.executeQuery(userStatement.toString());
         while (userResultSet.next()) {
             firstName = userResultSet.getString("first_name");
             lastName = userResultSet.getString("last_name");
@@ -70,7 +80,7 @@ public class StudentDAO {
                 "WHERE login = ?";
         PreparedStatement studentStatement = c.prepareStatement(studentQuery);
         studentStatement.setString(1, login);
-        ResultSet studentResultSet = SQLQueryHandler.getInstance().executeQuery(studentStatement.toString());
+        ResultSet studentResultSet = sqlQueryHandler.executeQuery(studentStatement.toString());
         while (studentResultSet.next()) {
             coins_current = studentResultSet.getInt("coins_current");
             coins_total = studentResultSet.getInt("coins_total");

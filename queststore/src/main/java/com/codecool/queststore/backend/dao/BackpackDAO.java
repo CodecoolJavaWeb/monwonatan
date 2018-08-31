@@ -54,7 +54,7 @@ public class BackpackDAO {
         return false;
     }
 
-    private boolean removeBackpack(Backpack backpack) {
+    public boolean removeBackpack(Backpack backpack) {
         String removeOldBackpackQuery = "DELETE FROM backpack WHERE student_login = ?;";
         Connection c = SQLQueryHandler.getInstance().getConnection();
 
@@ -69,7 +69,7 @@ public class BackpackDAO {
         return true;
     }
 
-    private boolean addBackpack(Backpack backpack) {
+    public boolean addBackpack(Backpack backpack) {
         String addBackpackQuery = "INSERT INTO backpack (student_login, artifact_id, status) VALUES (?, ?, ?);";
         Connection c = SQLQueryHandler.getInstance().getConnection();
 
