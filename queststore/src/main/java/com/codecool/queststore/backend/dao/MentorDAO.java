@@ -1,26 +1,31 @@
-package com.codecool.queststore.backend.dao;
 
-import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
-import com.codecool.queststore.backend.model.Mentor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+        package com.codecool.queststore.backend.dao;
+
+        import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
+        import com.codecool.queststore.backend.model.Mentor;
+
+        import java.sql.Connection;
+        import java.sql.PreparedStatement;
+        import java.sql.ResultSet;
+        import java.sql.SQLException;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class MentorDAO {
 
-    private Connection c;
-    private SQLQueryHandler sqlQueryHandler;
+    private final String TYPE = "mentor";
+    Connection connection;
+    SQLQueryHandler sqlQueryHandler;
 
-    public MentorDAO(Connection connection, SQLQueryHandler sqlQueryHandler) {
-        this.c = connection;
+    public MentorDAO(Connection c,SQLQueryHandler sqlQueryHandler){
+        this.connection = c;
         this.sqlQueryHandler = sqlQueryHandler;
     }
 
-    private final String TYPE = "mentor";
+    public MentorDAO(){
+
+    }
 
     public boolean createMentor(String firstName, String lastName, String login, String password,
                                 int classId, String email, String address) {
@@ -31,7 +36,7 @@ public class MentorDAO {
             String mentorTableQuery = "INSERT INTO mentor_type (login, email, address) " +
                     "VALUES (?, ?, ?);";
 
-//            Connection c = SQLQueryHandler.getInstance().getConnection();
+            Connection c = SQLQueryHandler.getInstance().getConnection();
 
             PreparedStatement userStatement = c.prepareStatement(userTableQuery);
             userStatement.setString(1, firstName);
@@ -48,7 +53,7 @@ public class MentorDAO {
 
             String query = userStatement.toString() + "; " + mentorStatement.toString();
 
-            sqlQueryHandler.getInstance().executeQuery(query);
+            SQLQueryHandler.getInstance().executeQuery(query);
 
             return true;
         }
@@ -78,7 +83,7 @@ public class MentorDAO {
                     "classroom_id = ?, type = ? WHERE login = ?;";
             String mentorTableQuery = "UPDATE mentor_type SET email = ?, address = ? WHERE login = ?;";
 
-//            Connection c = SQLQueryHandler.getInstance().getConnection();
+            Connection c = SQLQueryHandler.getInstance().getConnection();
 
             PreparedStatement userStatement = c.prepareStatement(userTableQuery);
             userStatement.setString(1, firstName);
@@ -95,7 +100,7 @@ public class MentorDAO {
 
             String query = userStatement.toString() + "; " + mentorStatement.toString();
 
-            sqlQueryHandler.getInstance().executeQuery(query);
+            SQLQueryHandler.getInstance().executeQuery(query);
             return true;
         }
         catch (SQLException e) {
@@ -106,13 +111,13 @@ public class MentorDAO {
     public Mentor loadMentor(String login) throws SQLException {
         String query = "SELECT * FROM user_type LEFT JOIN mentor_type ON (user_type.login = mentor_type.login) " +
                 "WHERE mentor_type.login ILIKE ?";
-//        Connection c = SQLQueryHandler.getInstance().getConnection();
+        Connection c = SQLQueryHandler.getInstance().getConnection();
 
         PreparedStatement statement = c.prepareStatement(query);
         statement.setString(1, login);
         query = statement.toString();
 
-        ResultSet resultSet = sqlQueryHandler.getInstance().executeQuery(query);
+        ResultSet resultSet = SQLQueryHandler.getInstance().executeQuery(query);
         return extractAndCreate(resultSet);
     }
 
@@ -141,7 +146,7 @@ public class MentorDAO {
         }
     }
 
-    public List<Mentor> loadAllMentors() throws SQLException {
+    public List<Mentor> loadAllMentors() {
 
         List<Mentor> allMentors = new ArrayList<>();
         String query = "SELECT login FROM mentor_type;";
@@ -162,15 +167,22 @@ public class MentorDAO {
         deleteMentor(mentor.getLogin());
     }
 
-    public void deleteMentor(String mentorLogin) {
+    public boolean deleteMentor(String mentorLogin) {
         String query = "DELETE FROM user_type WHERE login = ?;";
-//        Connection c = SQLQueryHandler.getInstance().getConnection();
+        Connection c = SQLQueryHandler.getInstance().getConnection();
 
         try {
             PreparedStatement removeMentor = c.prepareStatement(query);
             removeMentor.setString(1, mentorLogin);
             query = removeMentor.toString();
-            sqlQueryHandler.getInstance().executeQuery(query);
-        } catch (SQLException e) {}
+            SQLQueryHandler.getInstance().executeQuery(query);
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 }
+
+
+
+
