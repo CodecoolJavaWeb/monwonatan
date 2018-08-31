@@ -8,10 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,7 +23,7 @@ class SQLQueryHandlerTest {
     @InjectMocks private SQLQueryHandler queryHandler;
 
     @Mock private Connection mockConnection;
-    @Mock private Statement mockStatement;
+    @Mock private PreparedStatement mockStatement;
     @Mock private ResultSet mockResultSet;
 
     @BeforeEach
