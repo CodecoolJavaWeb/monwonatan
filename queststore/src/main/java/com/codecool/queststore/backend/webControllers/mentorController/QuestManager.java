@@ -24,6 +24,13 @@ public class QuestManager extends AbstractHandler implements HttpHandler {
 
     private Connection c;
     private SQLQueryHandler sqlHandler;
+    private QuestDAO questDAO;
+
+
+    public QuestManager(QuestDAO questDAO) {
+        this.questDAO = questDAO;
+    }
+
 
     @Override
     public void handle(HttpExchange exchange) {
@@ -48,7 +55,7 @@ public class QuestManager extends AbstractHandler implements HttpHandler {
                 }
             }
         } else if (method.equalsIgnoreCase("POST")) {
-                updateQuest(exchange);
+            updateQuest(exchange);
         }
     }
 
@@ -69,17 +76,17 @@ public class QuestManager extends AbstractHandler implements HttpHandler {
     }
 
     private void submitQuestCreationPage(HttpExchange exchange) {
-            Map<String, String> inputs = readFormData(exchange);
-            String name = inputs.get("name");
-            String description = inputs.get("description");
-            int value = Integer.valueOf(inputs.get("value"));
-            QuestDAO dao = new QuestDAO(c,sqlHandler);
-            dao.createQuest(name, description, value);
-            redirectToLocation(exchange, "/mentor/quest_manager");
+        Map<String, String> inputs = readFormData(exchange);
+        String name = inputs.get("name");
+        String description = inputs.get("description");
+        int value = Integer.valueOf(inputs.get("value"));
+        QuestDAO dao = new QuestDAO();
+        dao.createQuest(name, description, value);
+        redirectToLocation(exchange, "/mentor/quest_manager");
     }
 
     private void sendTemplateResponseWithTable(HttpExchange exchange, String templateName) {
-        List<Quest> quests = new QuestDAO(c,sqlHandler).loadAllQuests();
+        List<Quest> quests = new QuestDAO().loadAllQuests();
         JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format("templates/%s.jtwig", templateName));
         JtwigModel model = JtwigModel.newModel();
         model.with("quests", quests);
@@ -96,12 +103,12 @@ public class QuestManager extends AbstractHandler implements HttpHandler {
         int value = Integer.parseInt((String) inputs.get("value"));
 
         try {
-            Quest quest = new QuestDAO(c,sqlHandler).loadQuest(oldName);
+            Quest quest = new QuestDAO().loadQuest(oldName);
             quest.setName(newName);
             quest.setDescription(description);
             quest.setValue(value);
 
-            new QuestDAO(c,sqlHandler).updateQuest(quest);
+            new QuestDAO().updateQuest(quest);
             redirectToLocation(exchange, "/mentor/quest_manager");
         }
         catch (SQLException e) {

@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="af7281a5-b388-4a28-a1f8-eec19ee12367" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/dao/QuestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/dao/QuestDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/MentorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/MentorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/QuestManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/QuestManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/StudentEdition.java" beforeDir="false" afterPath="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/StudentEdition.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/queststore/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-596710287">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="6" />
+          <entry key="xml" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="6" />
+          <entry key="XML" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.php.composer.command.options" />
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.php.new.test" />
+      <usages-collector id="statistics.spring.boot.run.usages" />
+      <usages-collector id="statistics.php.composer.actions" />
+      <usages-collector id="statistics.php.new.class" />
+      <usages-collector id="statistics.js.language.service.starts" />
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.php.rename.constructor" />
+      <usages-collector id="statistics.spring.boot.mvc.usages" />
+      <usages-collector id="statistics.vcs.git.usages" />
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/queststore/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/queststore/src/test/java/com/codecool/queststore/backend/dao/ArtifactDAOTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-46">
+              <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/queststore/src/test/java/com/codecool/queststore/backend/webControllers/mentorController/QuestManagerTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="29" column="53" selection-start-line="29" selection-start-column="53" selection-end-line="29" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/MentorController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="574">
+              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/StudentEdition.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="50" column="42" selection-start-line="50" selection-start-column="42" selection-end-line="50" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/QuestManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="514">
+              <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/dao/QuestDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="514">
+              <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/queststore/src/test/java/com/codecool/queststore/backend/webControllers/mentorController/QuestManagerTest.java" />
+        <option value="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/dao/QuestDAO.java" />
+        <option value="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/QuestManager.java" />
+        <option value="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/StudentEdition.java" />
+        <option value="$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/MentorController.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="-2" />
+    <option name="width" value="1920" />
+    <option name="height" value="1034" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="loginManager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="webControllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="webControllers" type="462c0819:PsiDirectoryNode" />
+              <item name="mentorController" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="webControllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="monwonatan" type="b2602c69:ProjectViewProjectNode" />
+              <item name="monwonatan" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="queststore" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="webControllers" type="462c0819:PsiDirectoryNode" />
+              <item name="mentorController" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537032664953" />
+    <property name="last_opened_file_path" value="$USER_HOME$/monwonatan" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.QuestManagerTest">
+    <configuration name="ArtifactDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="queststore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.queststore.backend.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.queststore.backend.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.queststore.backend.dao.ArtifactDAOTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ArtifactDAOTest.testLoadArtifact" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="queststore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.queststore.backend.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.queststore.backend.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.queststore.backend.dao.ArtifactDAOTest" />
+      <option name="METHOD_NAME" value="testLoadArtifact" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuestManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="queststore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.queststore.backend.webControllers.mentorController.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.queststore.backend.webControllers.mentorController" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.queststore.backend.webControllers.mentorController.QuestManagerTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuestManagerTest.testReadQuestData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="queststore" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codecool.queststore.backend.webControllers.mentorController.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codecool.queststore.backend.webControllers.mentorController" />
+      <option name="MAIN_CLASS_NAME" value="com.codecool.queststore.backend.webControllers.mentorController.QuestManagerTest" />
+      <option name="METHOD_NAME" value="testReadQuestData" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.ArtifactDAOTest" />
+      <item itemvalue="JUnit.ArtifactDAOTest.testLoadArtifact" />
+      <item itemvalue="JUnit.QuestManagerTest" />
+      <item itemvalue="JUnit.QuestManagerTest.testReadQuestData" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.QuestManagerTest" />
+        <item itemvalue="JUnit.QuestManagerTest.testReadQuestData" />
+        <item itemvalue="JUnit.ArtifactDAOTest" />
+        <item itemvalue="JUnit.ArtifactDAOTest.testLoadArtifact" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="af7281a5-b388-4a28-a1f8-eec19ee12367" name="Default Changelist" comment="" />
+      <created>1537030582971</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1537030582971</updated>
+      <workItem from="1537030584335" duration="2071000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="ArtifactDAOTest - 2018.09.15 at 18h 57m 44s.xml">
+      <configuration name="ArtifactDAOTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArtifactDAOTest_testLoadArtifact - 2018.09.15 at 18h 58m 15s.xml">
+      <configuration name="ArtifactDAOTest.testLoadArtifact" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArtifactDAOTest - 2018.09.15 at 18h 58m 57s.xml">
+      <configuration name="ArtifactDAOTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="2071000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="-2" width="1920" height="1034" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Learn" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2497332" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.32964602" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32964602" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/queststore/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queststore/src/test/java/com/codecool/queststore/backend/dao/ArtifactDAOTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-46">
+          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/dao/QuestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/QuestManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/StudentEdition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="50" column="42" selection-start-line="50" selection-start-column="42" selection-end-line="50" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queststore/src/test/java/com/codecool/queststore/backend/webControllers/mentorController/QuestManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="29" column="53" selection-start-line="29" selection-start-column="53" selection-end-line="29" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queststore/src/main/java/com/codecool/queststore/backend/webControllers/mentorController/MentorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

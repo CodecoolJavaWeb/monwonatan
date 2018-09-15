@@ -16,10 +16,10 @@ public class QuestDAO {
     private Connection c;
     private SQLQueryHandler sqlHandler;
 
-    public QuestDAO(Connection connection, SQLQueryHandler sqlHandler) {
-        this.c = connection;
-        this.sqlHandler = sqlHandler;
-    }
+//    public QuestDAO(Connection connection, SQLQueryHandler sqlHandler) {
+//        this.c = connection;
+//        this.sqlHandler = sqlHandler;
+//    }
 
     public boolean createQuest(String name, String description, int value) {
         try {

@@ -48,7 +48,7 @@ public class StudentEdition extends AbstractHandler implements HttpHandler {
     private void sendTemplateResponseWithTable(HttpExchange exchange, String templateName) {
         List<Student> students = new StudentDAO().loadAllStudents();
         List<Classroom> classrooms = new ClassroomDAO().loadAllClassrooms();
-        List<Quest> quests = new QuestDAO(c,sqlHandler).loadAllQuests();
+        List<Quest> quests = new QuestDAO().loadAllQuests();
         JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format("templates/%s.jtwig", templateName));
         JtwigModel model = JtwigModel.newModel();
         model.with("students", students);
