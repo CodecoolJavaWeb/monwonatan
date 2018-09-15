@@ -1,0 +1,209 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AbstractHandler</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.codecool.queststore.backend.webControllers</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AbstractHandler (com.codecool.queststore.backend.webControllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AbstractHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (3/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28.1%
+  </span>
+  <span class="absValue">
+    (18/ 64)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.codecool.queststore.backend.webControllers;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.codecool.queststore.backend.dao.LoginDAO;
+<i>4</i>&nbsp;import com.codecool.queststore.backend.session.SessionIdContainer;
+<i>5</i>&nbsp;import com.sun.net.httpserver.Headers;
+<i>6</i>&nbsp;import com.sun.net.httpserver.HttpExchange;
+<i>7</i>&nbsp;import org.jtwig.JtwigModel;
+<i>8</i>&nbsp;import org.jtwig.JtwigTemplate;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.io.*;
+<i>11</i>&nbsp;import java.net.HttpCookie;
+<i>12</i>&nbsp;import java.net.URLDecoder;
+<i>13</i>&nbsp;import java.sql.SQLException;
+<i>14</i>&nbsp;import java.util.HashMap;
+<i>15</i>&nbsp;import java.util.Map;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;public abstract class AbstractHandler {
+<i>18</i>&nbsp;    private SessionIdContainer sessionIdContainer;
+<i>19</i>&nbsp;
+<b class="fc"><i>20</i>&nbsp;    public AbstractHandler() {</b>
+<b class="fc"><i>21</i>&nbsp;        this.sessionIdContainer = SessionIdContainer.getSessionIdContainer();</b>
+<b class="fc"><i>22</i>&nbsp;    }</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    public SessionIdContainer getSessionIdContainer() {
+<b class="nc"><i>25</i>&nbsp;        return sessionIdContainer;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    public void redirectToLocation(HttpExchange exchange, String location) {
+<b class="nc"><i>29</i>&nbsp;        Headers responseHeaders = exchange.getResponseHeaders();</b>
+<b class="nc"><i>30</i>&nbsp;        responseHeaders.add(&quot;Location&quot;, location);</b>
+<i>31</i>&nbsp;        try {
+<b class="nc"><i>32</i>&nbsp;            exchange.sendResponseHeaders(302, -1);</b>
+<b class="nc"><i>33</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>34</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>35</i>&nbsp;        }</b>
+<b class="nc"><i>36</i>&nbsp;        exchange.close();</b>
+<b class="nc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    public void sendResponse(HttpExchange exchange, String response) {
+<b class="nc"><i>40</i>&nbsp;        byte[] bytes = response.getBytes();</b>
+<i>41</i>&nbsp;        try {
+<b class="nc"><i>42</i>&nbsp;            exchange.sendResponseHeaders(200, bytes.length);</b>
+<b class="nc"><i>43</i>&nbsp;            OutputStream os = exchange.getResponseBody();</b>
+<b class="nc"><i>44</i>&nbsp;            os.write(bytes);</b>
+<b class="nc"><i>45</i>&nbsp;            os.close();</b>
+<b class="nc"><i>46</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>47</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>48</i>&nbsp;        }</b>
+<b class="nc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    public void sendTemplateResponse(HttpExchange exchange, String templateName) {
+<b class="nc"><i>52</i>&nbsp;        JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format(&quot;templates/%s.jtwig&quot;, templateName));</b>
+<b class="nc"><i>53</i>&nbsp;        JtwigModel model = JtwigModel.newModel();</b>
+<b class="nc"><i>54</i>&nbsp;        String response = template.render(model);</b>
+<b class="nc"><i>55</i>&nbsp;        sendResponse(exchange, response);</b>
+<b class="nc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    public void sendTemplateResponseIndex(HttpExchange exchange, String templateName, String title, String header, String firstName, String lastName) {
+<b class="nc"><i>59</i>&nbsp;        JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format(&quot;templates/%s.jtwig&quot;, templateName));</b>
+<b class="nc"><i>60</i>&nbsp;        JtwigModel model = JtwigModel.newModel();</b>
+<b class="nc"><i>61</i>&nbsp;        model.with(&quot;title&quot;, title);</b>
+<b class="nc"><i>62</i>&nbsp;        model.with(&quot;header&quot;, header);</b>
+<b class="nc"><i>63</i>&nbsp;        model.with(&quot;firstname&quot;, firstName);</b>
+<b class="nc"><i>64</i>&nbsp;        model.with(&quot;lastname&quot;, lastName);</b>
+<b class="nc"><i>65</i>&nbsp;        String response = template.render(model);</b>
+<b class="nc"><i>66</i>&nbsp;        sendResponse(exchange, response);</b>
+<b class="nc"><i>67</i>&nbsp;    }</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    public Map&lt;String, String&gt; readFormData(HttpExchange exchange) {
+<b class="fc"><i>70</i>&nbsp;        String formData = &quot;&quot;;</b>
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;        try {
+<b class="fc"><i>73</i>&nbsp;            InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), &quot;utf-8&quot;);</b>
+<b class="fc"><i>74</i>&nbsp;            BufferedReader br = new BufferedReader(isr);</b>
+<b class="fc"><i>75</i>&nbsp;            formData = br.readLine();</b>
+<b class="nc"><i>76</i>&nbsp;        } catch (IOException e){</b>
+<b class="nc"><i>77</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>78</i>&nbsp;        }</b>
+<b class="fc"><i>79</i>&nbsp;        return parseFormData(formData);</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    public Map&lt;String, String&gt; parseFormData(String formData) {
+<b class="fc"><i>83</i>&nbsp;        Map&lt;String, String&gt; inputs = new HashMap&lt;&gt;();</b>
+<i>84</i>&nbsp;        String key;
+<i>85</i>&nbsp;        String value;
+<b class="fc"><i>86</i>&nbsp;        String[] pairs = formData.split(&quot;&amp;&quot;);</b>
+<i>87</i>&nbsp;
+<b class="fc"><i>88</i>&nbsp;        for (String pair : pairs) {</b>
+<b class="fc"><i>89</i>&nbsp;            String[] keyValue = pair.split(&quot;=&quot;);</b>
+<b class="fc"><i>90</i>&nbsp;            key = keyValue[0];</b>
+<i>91</i>&nbsp;            try {
+<b class="fc"><i>92</i>&nbsp;                value = URLDecoder.decode(keyValue[1], &quot;UTF-8&quot;);</b>
+<b class="fc"><i>93</i>&nbsp;                inputs.put(key, value);</b>
+<i>94</i>&nbsp;
+<b class="nc"><i>95</i>&nbsp;            } catch (UnsupportedEncodingException e) {</b>
+<b class="nc"><i>96</i>&nbsp;                e.printStackTrace();</b>
+<b class="fc"><i>97</i>&nbsp;            }</b>
+<i>98</i>&nbsp;        }
+<b class="fc"><i>99</i>&nbsp;        return inputs;</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    public boolean isLoggedIn(String sid) {
+<b class="nc"><i>104</i>&nbsp;        return getSessionIdContainer().contains(sid);</b>
+<i>105</i>&nbsp;    }
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    public String getSidFromCookieStr(String cookieStr) {
+<b class="nc"><i>108</i>&nbsp;        HttpCookie cookie = HttpCookie.parse(cookieStr).get(0);</b>
+<b class="nc"><i>109</i>&nbsp;        return cookie.toString().split(&quot;=&quot;)[1];</b>
+<i>110</i>&nbsp;    }
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    public String getPermissions(String sessionID) {
+<b class="nc"><i>113</i>&nbsp;        String login = sessionIdContainer.getUserLogin(sessionID);</b>
+<i>114</i>&nbsp;        try {
+<b class="nc"><i>115</i>&nbsp;            return new LoginDAO().getTypeBy(login);</b>
+<b class="nc"><i>116</i>&nbsp;        } catch (SQLException e) {</b>
+<b class="nc"><i>117</i>&nbsp;            return &quot;undefined&quot;;</b>
+<i>118</i>&nbsp;        }
+<i>119</i>&nbsp;    }
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;    public String getLoginFromExchange(HttpExchange exchange) {
+<b class="nc"><i>122</i>&nbsp;        String cookieStr = exchange.getRequestHeaders().getFirst(&quot;Cookie&quot;);</b>
+<b class="nc"><i>123</i>&nbsp;        String sessionId = getSidFromCookieStr(cookieStr);</b>
+<b class="nc"><i>124</i>&nbsp;        return getSessionIdContainer().getUserLogin(sessionId);</b>
+<i>125</i>&nbsp;    }
+<i>126</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-08-31 12:34</div>
+</div>
+</body>
+</html>

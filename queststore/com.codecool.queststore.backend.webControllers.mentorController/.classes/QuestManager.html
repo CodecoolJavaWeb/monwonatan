@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: QuestManager</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.codecool.queststore.backend.webControllers.mentorController</a> ]
+</div>
+
+<h1>Coverage Summary for Class: QuestManager (com.codecool.queststore.backend.webControllers.mentorController)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">QuestManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 74)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.codecool.queststore.backend.webControllers.mentorController;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.codecool.queststore.backend.dao.QuestDAO;
+<i>4</i>&nbsp;import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
+<i>5</i>&nbsp;import com.codecool.queststore.backend.model.Quest;
+<i>6</i>&nbsp;import com.codecool.queststore.backend.webControllers.AbstractHandler;
+<i>7</i>&nbsp;import com.sun.net.httpserver.HttpExchange;
+<i>8</i>&nbsp;import com.sun.net.httpserver.HttpHandler;
+<i>9</i>&nbsp;import org.jtwig.JtwigModel;
+<i>10</i>&nbsp;import org.jtwig.JtwigTemplate;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.io.BufferedReader;
+<i>13</i>&nbsp;import java.io.IOException;
+<i>14</i>&nbsp;import java.io.InputStreamReader;
+<i>15</i>&nbsp;import java.io.UnsupportedEncodingException;
+<i>16</i>&nbsp;import java.net.URLDecoder;
+<i>17</i>&nbsp;import java.sql.Connection;
+<i>18</i>&nbsp;import java.sql.SQLException;
+<i>19</i>&nbsp;import java.util.HashMap;
+<i>20</i>&nbsp;import java.util.List;
+<i>21</i>&nbsp;import java.util.Map;
+<i>22</i>&nbsp;
+<b class="nc"><i>23</i>&nbsp;public class QuestManager extends AbstractHandler implements HttpHandler {</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    private Connection c;
+<i>26</i>&nbsp;    private SQLQueryHandler sqlHandler;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public void handle(HttpExchange exchange) {
+<b class="nc"><i>30</i>&nbsp;        String method = exchange.getRequestMethod();</b>
+<b class="nc"><i>31</i>&nbsp;        if (method.equalsIgnoreCase(&quot;GET&quot;)) {</b>
+<b class="nc"><i>32</i>&nbsp;            String[] uriParts = exchange.getRequestURI().toString().split(&quot;/&quot;);</b>
+<i>33</i>&nbsp;
+<b class="nc"><i>34</i>&nbsp;            if (uriParts.length == 3) {</b>
+<i>35</i>&nbsp;                // &quot;/mentor/quest&quot;
+<b class="nc"><i>36</i>&nbsp;                sendTemplateResponseWithTable(exchange, &quot;questmanager&quot;);</b>
+<i>37</i>&nbsp;            } else {
+<i>38</i>&nbsp;                // &quot;/mentor/quest/(action)&quot;
+<b class="nc"><i>39</i>&nbsp;                int ACTION_I = 3;</b>
+<b class="nc"><i>40</i>&nbsp;                String action = uriParts[ACTION_I];</b>
+<i>41</i>&nbsp;
+<b class="nc"><i>42</i>&nbsp;                if (action.equals(&quot;edit&quot;)) {</b>
+<b class="nc"><i>43</i>&nbsp;                    updateQuest(exchange);</b>
+<b class="nc"><i>44</i>&nbsp;                } else if (action.equals(&quot;add&quot;)) {</b>
+<b class="nc"><i>45</i>&nbsp;                    createQuest(exchange);</b>
+<i>46</i>&nbsp;                } else {
+<b class="nc"><i>47</i>&nbsp;                    redirectToLocation(exchange, &quot;/login&quot;);</b>
+<i>48</i>&nbsp;                }
+<i>49</i>&nbsp;            }
+<b class="nc"><i>50</i>&nbsp;        } else if (method.equalsIgnoreCase(&quot;POST&quot;)) {</b>
+<b class="nc"><i>51</i>&nbsp;                updateQuest(exchange);</b>
+<i>52</i>&nbsp;        }
+<b class="nc"><i>53</i>&nbsp;    }</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    private void createQuest(HttpExchange exchange) {
+<b class="nc"><i>56</i>&nbsp;        String method = exchange.getRequestMethod();</b>
+<i>57</i>&nbsp;
+<b class="nc"><i>58</i>&nbsp;        if(method.equalsIgnoreCase(&quot;GET&quot;)) {</b>
+<b class="nc"><i>59</i>&nbsp;            sendQuestCreationPage(exchange);</b>
+<b class="nc"><i>60</i>&nbsp;        } else if (method.equalsIgnoreCase(&quot;POST&quot;)) {</b>
+<b class="nc"><i>61</i>&nbsp;            submitQuestCreationPage(exchange);</b>
+<i>62</i>&nbsp;        } else {
+<b class="nc"><i>63</i>&nbsp;            redirectToLocation(exchange, &quot;/mentor/index&quot;);</b>
+<i>64</i>&nbsp;        }
+<b class="nc"><i>65</i>&nbsp;    }</b>
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    private void sendQuestCreationPage(HttpExchange exchange) {
+<b class="nc"><i>68</i>&nbsp;        sendTemplateResponse(exchange, &quot;mentor-create-quest&quot;);</b>
+<b class="nc"><i>69</i>&nbsp;    }</b>
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    private void submitQuestCreationPage(HttpExchange exchange) {
+<b class="nc"><i>72</i>&nbsp;            Map&lt;String, String&gt; inputs = readFormData(exchange);</b>
+<b class="nc"><i>73</i>&nbsp;            String name = inputs.get(&quot;name&quot;);</b>
+<b class="nc"><i>74</i>&nbsp;            String description = inputs.get(&quot;description&quot;);</b>
+<b class="nc"><i>75</i>&nbsp;            int value = Integer.valueOf(inputs.get(&quot;value&quot;));</b>
+<b class="nc"><i>76</i>&nbsp;            QuestDAO dao = new QuestDAO(c,sqlHandler);</b>
+<b class="nc"><i>77</i>&nbsp;            dao.createQuest(name, description, value);</b>
+<b class="nc"><i>78</i>&nbsp;            redirectToLocation(exchange, &quot;/mentor/quest_manager&quot;);</b>
+<b class="nc"><i>79</i>&nbsp;    }</b>
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    private void sendTemplateResponseWithTable(HttpExchange exchange, String templateName) {
+<b class="nc"><i>82</i>&nbsp;        List&lt;Quest&gt; quests = new QuestDAO(c,sqlHandler).loadAllQuests();</b>
+<b class="nc"><i>83</i>&nbsp;        JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format(&quot;templates/%s.jtwig&quot;, templateName));</b>
+<b class="nc"><i>84</i>&nbsp;        JtwigModel model = JtwigModel.newModel();</b>
+<b class="nc"><i>85</i>&nbsp;        model.with(&quot;quests&quot;, quests);</b>
+<b class="nc"><i>86</i>&nbsp;        String response = template.render(model);</b>
+<b class="nc"><i>87</i>&nbsp;        sendResponse(exchange, response);</b>
+<b class="nc"><i>88</i>&nbsp;    }</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    public void updateQuest(HttpExchange exchange) {
+<b class="nc"><i>91</i>&nbsp;        Map inputs = readQuestData(exchange);</b>
+<i>92</i>&nbsp;
+<b class="nc"><i>93</i>&nbsp;        String oldName = (String) inputs.get(&quot;submit&quot;);</b>
+<b class="nc"><i>94</i>&nbsp;        String newName = (String) inputs.get(&quot;name&quot;);</b>
+<b class="nc"><i>95</i>&nbsp;        String description = (String) inputs.get(&quot;description&quot;);</b>
+<b class="nc"><i>96</i>&nbsp;        int value = Integer.parseInt((String) inputs.get(&quot;value&quot;));</b>
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;        try {
+<b class="nc"><i>99</i>&nbsp;            Quest quest = new QuestDAO(c,sqlHandler).loadQuest(oldName);</b>
+<b class="nc"><i>100</i>&nbsp;            quest.setName(newName);</b>
+<b class="nc"><i>101</i>&nbsp;            quest.setDescription(description);</b>
+<b class="nc"><i>102</i>&nbsp;            quest.setValue(value);</b>
+<i>103</i>&nbsp;
+<b class="nc"><i>104</i>&nbsp;            new QuestDAO(c,sqlHandler).updateQuest(quest);</b>
+<b class="nc"><i>105</i>&nbsp;            redirectToLocation(exchange, &quot;/mentor/quest_manager&quot;);</b>
+<i>106</i>&nbsp;        }
+<b class="nc"><i>107</i>&nbsp;        catch (SQLException e) {</b>
+<b class="nc"><i>108</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>109</i>&nbsp;        }</b>
+<b class="nc"><i>110</i>&nbsp;    }</b>
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    public Map&lt;String, String&gt; readQuestData(HttpExchange exchange) {
+<b class="nc"><i>113</i>&nbsp;        String formData = &quot;&quot;;</b>
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;        try {
+<b class="nc"><i>116</i>&nbsp;            InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), &quot;utf-8&quot;);</b>
+<b class="nc"><i>117</i>&nbsp;            BufferedReader br = new BufferedReader(isr);</b>
+<b class="nc"><i>118</i>&nbsp;            formData = br.readLine();</b>
+<b class="nc"><i>119</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>120</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>121</i>&nbsp;        }</b>
+<b class="nc"><i>122</i>&nbsp;        return parseQuestData(formData);</b>
+<i>123</i>&nbsp;    }
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;    public Map&lt;String, String&gt; parseQuestData(String formData) {
+<b class="nc"><i>126</i>&nbsp;        Map&lt;String, String&gt; inputs = new HashMap&lt;&gt;();</b>
+<i>127</i>&nbsp;        String key;
+<i>128</i>&nbsp;        String value;
+<b class="nc"><i>129</i>&nbsp;        String[] pairs = formData.split(&quot;&amp;&quot;);</b>
+<b class="nc"><i>130</i>&nbsp;        for (String pair : pairs) {</b>
+<b class="nc"><i>131</i>&nbsp;            String[] keyValue = pair.split(&quot;=&quot;);</b>
+<b class="nc"><i>132</i>&nbsp;            key = keyValue[0];</b>
+<i>133</i>&nbsp;            try {
+<b class="nc"><i>134</i>&nbsp;                value = URLDecoder.decode(keyValue[1], &quot;UTF-8&quot;);</b>
+<b class="nc"><i>135</i>&nbsp;                inputs.put(key, value);</b>
+<i>136</i>&nbsp;
+<b class="nc"><i>137</i>&nbsp;            } catch (UnsupportedEncodingException | IndexOutOfBoundsException e) {</b>
+<b class="nc"><i>138</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>139</i>&nbsp;            }</b>
+<i>140</i>&nbsp;        }
+<b class="nc"><i>141</i>&nbsp;        return inputs;</b>
+<i>142</i>&nbsp;    }
+<i>143</i>&nbsp;}
+<i>144</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-08-31 12:34</div>
+</div>
+</body>
+</html>

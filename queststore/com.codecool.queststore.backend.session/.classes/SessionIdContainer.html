@@ -1,0 +1,124 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SessionIdContainer</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.codecool.queststore.backend.session</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SessionIdContainer (com.codecool.queststore.backend.session)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SessionIdContainer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.codecool.queststore.backend.session;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.HashMap;
+<i>4</i>&nbsp;import java.util.Map;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;public class SessionIdContainer {
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;    private static SessionIdContainer instance;
+<i>9</i>&nbsp;    private Map&lt;String, String&gt; container;
+<i>10</i>&nbsp;
+<b class="fc"><i>11</i>&nbsp;    private SessionIdContainer() {</b>
+<b class="fc"><i>12</i>&nbsp;        container = new HashMap&lt;&gt;();</b>
+<b class="fc"><i>13</i>&nbsp;    }</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    public static SessionIdContainer getSessionIdContainer() {
+<b class="fc"><i>16</i>&nbsp;        if (instance == null) {</b>
+<b class="fc"><i>17</i>&nbsp;            instance = new SessionIdContainer();</b>
+<i>18</i>&nbsp;        }
+<b class="fc"><i>19</i>&nbsp;        return instance;</b>
+<i>20</i>&nbsp;    }
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    public Map&lt;String, String&gt; getContainer() {
+<b class="fc"><i>23</i>&nbsp;        return container;</b>
+<i>24</i>&nbsp;    }
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    public String getUserLogin(String sessionId) {
+<b class="fc"><i>27</i>&nbsp;        return container.get(sessionId);</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    public void add(String sessionId, String userLogin) {
+<b class="fc"><i>31</i>&nbsp;        this.container.put(sessionId, userLogin);</b>
+<b class="fc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    public void remove(String sessionId) {
+<b class="fc"><i>35</i>&nbsp;        this.container.remove(sessionId);</b>
+<b class="fc"><i>36</i>&nbsp;    }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    public boolean contains(String sessionId) {
+<b class="fc"><i>39</i>&nbsp;        return container.containsKey(sessionId);</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-08-31 12:34</div>
+</div>
+</body>
+</html>

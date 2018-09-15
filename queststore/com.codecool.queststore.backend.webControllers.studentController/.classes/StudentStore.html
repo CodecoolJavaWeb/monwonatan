@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StudentStore</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.codecool.queststore.backend.webControllers.studentController</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StudentStore (com.codecool.queststore.backend.webControllers.studentController)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StudentStore</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 49)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.codecool.queststore.backend.webControllers.studentController;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.codecool.queststore.backend.dao.BackpackDAO;
+<i>4</i>&nbsp;import com.codecool.queststore.backend.dao.StudentDAO;
+<i>5</i>&nbsp;import com.codecool.queststore.backend.dao.ArtifactDAO;
+<i>6</i>&nbsp;import com.codecool.queststore.backend.model.Artifact;
+<i>7</i>&nbsp;import com.codecool.queststore.backend.model.Backpack;
+<i>8</i>&nbsp;import com.codecool.queststore.backend.model.Student;
+<i>9</i>&nbsp;import com.codecool.queststore.backend.webControllers.AbstractHandler;
+<i>10</i>&nbsp;import com.sun.net.httpserver.HttpExchange;
+<i>11</i>&nbsp;import com.sun.net.httpserver.HttpHandler;
+<i>12</i>&nbsp;import org.jtwig.JtwigModel;
+<i>13</i>&nbsp;import org.jtwig.JtwigTemplate;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.sql.SQLException;
+<i>16</i>&nbsp;import java.util.List;
+<i>17</i>&nbsp;import java.util.Map;
+<i>18</i>&nbsp;
+<b class="nc"><i>19</i>&nbsp;public class StudentStore extends AbstractHandler implements HttpHandler {</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Override
+<i>22</i>&nbsp;    public void handle(HttpExchange exchange) {
+<i>23</i>&nbsp;
+<b class="nc"><i>24</i>&nbsp;        if(exchange.getRequestMethod().equals(&quot;GET&quot;)) {</b>
+<b class="nc"><i>25</i>&nbsp;            sendTemplateResponseStore(exchange, &quot;studentStore&quot;,</b>
+<b class="nc"><i>26</i>&nbsp;                    getSidFromCookieStr(exchange.getRequestHeaders().getFirst(&quot;Cookie&quot;)));</b>
+<i>27</i>&nbsp;        }
+<b class="nc"><i>28</i>&nbsp;        else if (exchange.getRequestMethod().equals(&quot;POST&quot;)) {</b>
+<b class="nc"><i>29</i>&nbsp;            String artifactName = getArtifactName(exchange);</b>
+<b class="nc"><i>30</i>&nbsp;            buy(exchange, getSidFromCookieStr(exchange.getRequestHeaders().getFirst(&quot;Cookie&quot;)),</b>
+<i>31</i>&nbsp;                    artifactName);
+<b class="nc"><i>32</i>&nbsp;            redirectToLocation(exchange, &quot;/student/store&quot;);</b>
+<i>33</i>&nbsp;        }
+<b class="nc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    public void sendTemplateResponseStore(HttpExchange exchange, String templateName, String sessionId) {
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;        try {
+<b class="nc"><i>39</i>&nbsp;            String login = getSessionIdContainer().getUserLogin(sessionId);</b>
+<b class="nc"><i>40</i>&nbsp;            Student student = new StudentDAO().loadStudent(login);</b>
+<i>41</i>&nbsp;
+<b class="nc"><i>42</i>&nbsp;            JtwigTemplate template = JtwigTemplate.classpathTemplate(String.format(&quot;templates/%s.jtwig&quot;, templateName));</b>
+<b class="nc"><i>43</i>&nbsp;            JtwigModel model = JtwigModel.newModel();</b>
+<i>44</i>&nbsp;
+<b class="nc"><i>45</i>&nbsp;            List&lt;Artifact&gt; artifactList = new ArtifactDAO().loadAllArtifacts();</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;            model.with(&quot;title&quot;, &quot;Student store&quot;);</b>
+<b class="nc"><i>48</i>&nbsp;            model.with(&quot;items&quot;, artifactList);</b>
+<b class="nc"><i>49</i>&nbsp;            model.with(&quot;coins&quot;, student.getCoolcoins());</b>
+<b class="nc"><i>50</i>&nbsp;            String response = template.render(model);</b>
+<b class="nc"><i>51</i>&nbsp;            sendResponse(exchange, response);</b>
+<i>52</i>&nbsp;        }
+<b class="nc"><i>53</i>&nbsp;        catch (SQLException e) {</b>
+<b class="nc"><i>54</i>&nbsp;            redirectToLocation(exchange, &quot;login&quot;);</b>
+<b class="nc"><i>55</i>&nbsp;        }</b>
+<b class="nc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    public void buy(HttpExchange exchange, String sessionId, String artifactName) {
+<i>59</i>&nbsp;
+<b class="nc"><i>60</i>&nbsp;        updateBackpack(exchange, sessionId, artifactName);</b>
+<i>61</i>&nbsp;
+<b class="nc"><i>62</i>&nbsp;    }</b>
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    private Student loadStudentBySessionID(String sessionId) throws SQLException{
+<b class="nc"><i>65</i>&nbsp;        String login = getSessionIdContainer().getUserLogin(sessionId);</b>
+<b class="nc"><i>66</i>&nbsp;        Student student = new StudentDAO().loadStudent(login);</b>
+<b class="nc"><i>67</i>&nbsp;        return student;</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    private void updateStudent(Student student) {
+<b class="nc"><i>71</i>&nbsp;        StudentDAO studentDAO = new StudentDAO();</b>
+<b class="nc"><i>72</i>&nbsp;        studentDAO.updateStudent(student);</b>
+<b class="nc"><i>73</i>&nbsp;    }</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    private void updateBackpack(HttpExchange exchange, String sessionId, String artifactName) {
+<i>76</i>&nbsp;        try {
+<b class="nc"><i>77</i>&nbsp;            BackpackDAO backpackDAO = new BackpackDAO();</b>
+<b class="nc"><i>78</i>&nbsp;            Student student = loadStudentBySessionID(sessionId);</b>
+<b class="nc"><i>79</i>&nbsp;            ArtifactDAO artifactDAO = new ArtifactDAO();</b>
+<b class="nc"><i>80</i>&nbsp;            Artifact artifact = artifactDAO.loadArtifact(artifactName);</b>
+<b class="nc"><i>81</i>&nbsp;            int price = artifact.getPrice();</b>
+<i>82</i>&nbsp;
+<b class="nc"><i>83</i>&nbsp;            if (price &lt; student.getCoolcoins()) {</b>
+<b class="nc"><i>84</i>&nbsp;                student.substractCoins(price);</b>
+<b class="nc"><i>85</i>&nbsp;                Backpack backpack = student.getBackpack();</b>
+<i>86</i>&nbsp;
+<b class="nc"><i>87</i>&nbsp;                backpack.addToBackpack(artifact, &quot;unused&quot;);</b>
+<b class="nc"><i>88</i>&nbsp;                backpackDAO.updateBackpack(backpack);</b>
+<i>89</i>&nbsp;            }
+<b class="nc"><i>90</i>&nbsp;            updateStudent(student);</b>
+<i>91</i>&nbsp;        }
+<b class="nc"><i>92</i>&nbsp;        catch (SQLException e) {</b>
+<b class="nc"><i>93</i>&nbsp;            redirectToLocation(exchange, &quot;login&quot;);</b>
+<b class="nc"><i>94</i>&nbsp;        }</b>
+<b class="nc"><i>95</i>&nbsp;    }</b>
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    private String getArtifactName(HttpExchange exchange) {
+<b class="nc"><i>98</i>&nbsp;        Map inputs = readFormData(exchange);</b>
+<b class="nc"><i>99</i>&nbsp;        String artifactName = (String) inputs.get(&quot;name&quot;);</b>
+<b class="nc"><i>100</i>&nbsp;        return artifactName;</b>
+<i>101</i>&nbsp;    }
+<i>102</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-08-31 12:34</div>
+</div>
+</body>
+</html>

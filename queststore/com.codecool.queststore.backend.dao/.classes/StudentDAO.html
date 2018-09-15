@@ -1,0 +1,297 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StudentDAO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.codecool.queststore.backend.dao</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StudentDAO (com.codecool.queststore.backend.dao)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StudentDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 96)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">StudentDAO$ValueComparator</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 102)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.codecool.queststore.backend.dao;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.codecool.queststore.backend.databaseConnection.SQLQueryHandler;
+<i>4</i>&nbsp;import com.codecool.queststore.backend.model.ExpLvl;
+<i>5</i>&nbsp;import com.codecool.queststore.backend.model.Student;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.sql.Connection;
+<i>8</i>&nbsp;import java.sql.PreparedStatement;
+<i>9</i>&nbsp;import java.sql.ResultSet;
+<i>10</i>&nbsp;import java.sql.SQLException;
+<i>11</i>&nbsp;import java.util.*;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;public class StudentDAO {
+<i>14</i>&nbsp;
+<b class="nc"><i>15</i>&nbsp;    private final String TYPE = &quot;student&quot;;</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    Connection c;
+<i>18</i>&nbsp;    SQLQueryHandler sqlQueryHandler;
+<i>19</i>&nbsp;    //Add Constructor with Connection &amp; SQLQueryHandler as a parameters to inject mocked
+<i>20</i>&nbsp;    //object while testing.
+<b class="nc"><i>21</i>&nbsp;    public StudentDAO(Connection connection, SQLQueryHandler sqlQueryHandler) {</b>
+<b class="nc"><i>22</i>&nbsp;        this.c = connection;</b>
+<b class="nc"><i>23</i>&nbsp;        this.sqlQueryHandler = sqlQueryHandler;</b>
+<b class="nc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<b class="nc"><i>26</i>&nbsp;    public StudentDAO(){}</b>
+<i>27</i>&nbsp;    public boolean createStudent(String firstName, String lastName, String login, String password,
+<i>28</i>&nbsp;                                 int classId) {
+<i>29</i>&nbsp;        try {
+<b class="nc"><i>30</i>&nbsp;            String userTableQuery = &quot;INSERT INTO user_type (first_name, last_name, login, password, classroom_id, type) &quot; +</b>
+<i>31</i>&nbsp;                    &quot;VALUES (?, ?, ?, ?, ?, ?) &quot;;
+<b class="nc"><i>32</i>&nbsp;            String studentTableQuery = &quot;INSERT INTO student_type (login, coins_current, coins_total) &quot; +</b>
+<i>33</i>&nbsp;                    &quot;VALUES (?, default, default);&quot;;
+<i>34</i>&nbsp;
+<b class="nc"><i>35</i>&nbsp;            Connection c = SQLQueryHandler.getInstance().getConnection();</b>
+<i>36</i>&nbsp;
+<b class="nc"><i>37</i>&nbsp;            PreparedStatement userStatement = c.prepareStatement(userTableQuery);</b>
+<b class="nc"><i>38</i>&nbsp;            userStatement.setString(1, firstName);</b>
+<b class="nc"><i>39</i>&nbsp;            userStatement.setString(2, lastName);</b>
+<b class="nc"><i>40</i>&nbsp;            userStatement.setString(3, login);</b>
+<b class="nc"><i>41</i>&nbsp;            userStatement.setString(4, password);</b>
+<b class="nc"><i>42</i>&nbsp;            userStatement.setInt(5, classId);</b>
+<b class="nc"><i>43</i>&nbsp;            userStatement.setString(6, TYPE);</b>
+<i>44</i>&nbsp;
+<b class="nc"><i>45</i>&nbsp;            PreparedStatement studentStatement = c.prepareStatement(studentTableQuery);</b>
+<b class="nc"><i>46</i>&nbsp;            studentStatement.setString(1, login);</b>
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;            String query = userStatement.toString() + &quot;; &quot; + studentStatement.toString();</b>
+<b class="nc"><i>49</i>&nbsp;            SQLQueryHandler.getInstance().executeQuery(query);</b>
+<b class="nc"><i>50</i>&nbsp;            return true;</b>
+<i>51</i>&nbsp;        }
+<b class="nc"><i>52</i>&nbsp;        catch (SQLException e) {</b>
+<b class="nc"><i>53</i>&nbsp;            return false;</b>
+<i>54</i>&nbsp;        }
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    public Student loadStudent(String login) throws SQLException {
+<i>58</i>&nbsp;
+<b class="nc"><i>59</i>&nbsp;        String firstName=&quot;&quot;;</b>
+<b class="nc"><i>60</i>&nbsp;        String lastName=&quot;&quot;;</b>
+<b class="nc"><i>61</i>&nbsp;        String password=&quot;&quot;;</b>
+<b class="nc"><i>62</i>&nbsp;        int classroomID=0;</b>
+<b class="nc"><i>63</i>&nbsp;        int coins_current=0;</b>
+<b class="nc"><i>64</i>&nbsp;        int coins_total=0;</b>
+<i>65</i>&nbsp;
+<b class="nc"><i>66</i>&nbsp;        Connection c = SQLQueryHandler.getInstance().getConnection();</b>
+<i>67</i>&nbsp;
+<b class="nc"><i>68</i>&nbsp;        String userQuery = &quot;SELECT * FROM user_type WHERE login = ?&quot;;</b>
+<b class="nc"><i>69</i>&nbsp;        PreparedStatement userStatement = c.prepareStatement(userQuery);</b>
+<b class="nc"><i>70</i>&nbsp;        userStatement.setString(1, login);</b>
+<b class="nc"><i>71</i>&nbsp;        ResultSet userResultSet = sqlQueryHandler.executeQuery(userStatement.toString());</b>
+<b class="nc"><i>72</i>&nbsp;        while (userResultSet.next()) {</b>
+<b class="nc"><i>73</i>&nbsp;            firstName = userResultSet.getString(&quot;first_name&quot;);</b>
+<b class="nc"><i>74</i>&nbsp;            lastName = userResultSet.getString(&quot;last_name&quot;);</b>
+<b class="nc"><i>75</i>&nbsp;            password = userResultSet.getString(&quot;password&quot;);</b>
+<b class="nc"><i>76</i>&nbsp;            classroomID = userResultSet.getInt(&quot;classroom_id&quot;);</b>
+<i>77</i>&nbsp;        }
+<i>78</i>&nbsp;
+<b class="nc"><i>79</i>&nbsp;        String studentQuery = &quot;SELECT coins_current, coins_total FROM student_type &quot; +</b>
+<i>80</i>&nbsp;                &quot;WHERE login = ?&quot;;
+<b class="nc"><i>81</i>&nbsp;        PreparedStatement studentStatement = c.prepareStatement(studentQuery);</b>
+<b class="nc"><i>82</i>&nbsp;        studentStatement.setString(1, login);</b>
+<b class="nc"><i>83</i>&nbsp;        ResultSet studentResultSet = sqlQueryHandler.executeQuery(studentStatement.toString());</b>
+<b class="nc"><i>84</i>&nbsp;        while (studentResultSet.next()) {</b>
+<b class="nc"><i>85</i>&nbsp;            coins_current = studentResultSet.getInt(&quot;coins_current&quot;);</b>
+<b class="nc"><i>86</i>&nbsp;            coins_total = studentResultSet.getInt(&quot;coins_total&quot;);</b>
+<i>87</i>&nbsp;        }
+<i>88</i>&nbsp;
+<b class="nc"><i>89</i>&nbsp;        Student student = new Student(firstName, lastName, login, password, classroomID, TYPE, coins_current, coins_total);</b>
+<i>90</i>&nbsp;
+<b class="nc"><i>91</i>&nbsp;        return createAllStudentData(student, login);</b>
+<i>92</i>&nbsp;    }
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;    public boolean updateStudent(Student student) {
+<b class="nc"><i>95</i>&nbsp;        String firstName = student.getFirstName();</b>
+<b class="nc"><i>96</i>&nbsp;        String lastName = student.getLastName();</b>
+<b class="nc"><i>97</i>&nbsp;        String login = student.getLogin();</b>
+<b class="nc"><i>98</i>&nbsp;        String password = student.getPassword();</b>
+<b class="nc"><i>99</i>&nbsp;        int classId = student.getClassRoomID();</b>
+<b class="nc"><i>100</i>&nbsp;        int currentCoins = student.getCoolcoins();</b>
+<b class="nc"><i>101</i>&nbsp;        int totalCoins = student.getTotalCoins();</b>
+<i>102</i>&nbsp;
+<b class="nc"><i>103</i>&nbsp;        return updateStudent(firstName, lastName, login, password, classId, currentCoins, totalCoins);</b>
+<i>104</i>&nbsp;    }
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;    public boolean updateStudent(String firstName, String lastName, String login, String password,
+<i>107</i>&nbsp;                                 int classId, int currentCoins, int totalCoins) {
+<i>108</i>&nbsp;        try {
+<b class="nc"><i>109</i>&nbsp;            String userTableQuery = &quot;UPDATE user_type SET first_name = ?, last_name = ?, password = ?, &quot; +</b>
+<i>110</i>&nbsp;                    &quot;classroom_id = ?, type = ? WHERE login = ?&quot;;
+<i>111</i>&nbsp;
+<b class="nc"><i>112</i>&nbsp;            String studentTableQuery = &quot;UPDATE student_type SET coins_current = ?, coins_total = ? WHERE login = ?;&quot;;</b>
+<i>113</i>&nbsp;
+<b class="nc"><i>114</i>&nbsp;            Connection c = SQLQueryHandler.getInstance().getConnection();</b>
+<i>115</i>&nbsp;
+<b class="nc"><i>116</i>&nbsp;            PreparedStatement userStatement = c.prepareStatement(userTableQuery);</b>
+<b class="nc"><i>117</i>&nbsp;            userStatement.setString(1, firstName);</b>
+<b class="nc"><i>118</i>&nbsp;            userStatement.setString(2, lastName);</b>
+<b class="nc"><i>119</i>&nbsp;            userStatement.setString(3, password);</b>
+<b class="nc"><i>120</i>&nbsp;            userStatement.setInt(4, classId);</b>
+<b class="nc"><i>121</i>&nbsp;            userStatement.setString(5, TYPE);</b>
+<b class="nc"><i>122</i>&nbsp;            userStatement.setString(6, login);</b>
+<i>123</i>&nbsp;
+<b class="nc"><i>124</i>&nbsp;            PreparedStatement studentStatement = c.prepareStatement(studentTableQuery);</b>
+<b class="nc"><i>125</i>&nbsp;            studentStatement.setInt(1, currentCoins);</b>
+<b class="nc"><i>126</i>&nbsp;            studentStatement.setInt(2, totalCoins);</b>
+<b class="nc"><i>127</i>&nbsp;            studentStatement.setString(3, login);</b>
+<i>128</i>&nbsp;
+<b class="nc"><i>129</i>&nbsp;            String query = userStatement.toString() + &quot;; &quot; + studentStatement.toString();</b>
+<i>130</i>&nbsp;
+<b class="nc"><i>131</i>&nbsp;            SQLQueryHandler.getInstance().executeQuery(query);</b>
+<b class="nc"><i>132</i>&nbsp;            return true;</b>
+<i>133</i>&nbsp;        }
+<b class="nc"><i>134</i>&nbsp;        catch (SQLException e) {</b>
+<b class="nc"><i>135</i>&nbsp;            return false;</b>
+<i>136</i>&nbsp;        }
+<i>137</i>&nbsp;    }
+<i>138</i>&nbsp;
+<i>139</i>&nbsp;    public List&lt;Student&gt; loadAllStudents() {
+<b class="nc"><i>140</i>&nbsp;        List&lt;Student&gt; allStudents = new ArrayList&lt;&gt;();</b>
+<i>141</i>&nbsp;
+<b class="nc"><i>142</i>&nbsp;        String query = &quot;SELECT login FROM student_type&quot;;</b>
+<b class="nc"><i>143</i>&nbsp;        ResultSet logins = SQLQueryHandler.getInstance().executeQuery(query);</b>
+<i>144</i>&nbsp;        try {
+<b class="nc"><i>145</i>&nbsp;            while (logins.next()) {</b>
+<b class="nc"><i>146</i>&nbsp;                allStudents.add(loadStudent(logins.getString(&quot;login&quot;)));</b>
+<i>147</i>&nbsp;            }
+<b class="nc"><i>148</i>&nbsp;            return allStudents;</b>
+<i>149</i>&nbsp;        }
+<b class="nc"><i>150</i>&nbsp;        catch (SQLException e) {</b>
+<b class="nc"><i>151</i>&nbsp;            return null;</b>
+<i>152</i>&nbsp;        }
+<i>153</i>&nbsp;    }
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;    public Student createAllStudentData(Student student, String login) {
+<b class="nc"><i>156</i>&nbsp;        BackpackDAO backpackDAO = new BackpackDAO();</b>
+<b class="nc"><i>157</i>&nbsp;        ExpLevelDAO expLevelDAO = new ExpLevelDAO();</b>
+<b class="nc"><i>158</i>&nbsp;        student.setBackpack(backpackDAO.loadBackpack(login));</b>
+<b class="nc"><i>159</i>&nbsp;        Map&lt;String, Integer&gt; expLevels = expLevelDAO.loadAllExpLevel();</b>
+<b class="nc"><i>160</i>&nbsp;        StudentDAO.ValueComparator comparator = new StudentDAO.ValueComparator(expLevels);</b>
+<b class="nc"><i>161</i>&nbsp;        Map&lt;String, Integer&gt; sortedExpLevels = new TreeMap&lt;&gt;(comparator);</b>
+<b class="nc"><i>162</i>&nbsp;        sortedExpLevels.putAll(expLevels);</b>
+<i>163</i>&nbsp;
+<b class="nc"><i>164</i>&nbsp;        for (Map.Entry&lt;String, Integer&gt; entry : sortedExpLevels.entrySet()) {</b>
+<b class="nc"><i>165</i>&nbsp;            if (student.getCoolcoins() &gt;= entry.getValue()) {</b>
+<b class="nc"><i>166</i>&nbsp;                ExpLvl expLvl = new ExpLvl(entry.getValue(), entry.getKey());</b>
+<b class="nc"><i>167</i>&nbsp;                student.setExpLvl(expLvl);</b>
+<i>168</i>&nbsp;            }
+<b class="nc"><i>169</i>&nbsp;        }</b>
+<b class="nc"><i>170</i>&nbsp;        return student;</b>
+<i>171</i>&nbsp;    }
+<i>172</i>&nbsp;
+<i>173</i>&nbsp;    class ValueComparator implements Comparator&lt;String&gt; {
+<i>174</i>&nbsp;        Map&lt;String, Integer&gt; base;
+<i>175</i>&nbsp;
+<b class="nc"><i>176</i>&nbsp;        public ValueComparator(Map&lt;String, Integer&gt; base) {</b>
+<b class="nc"><i>177</i>&nbsp;            this.base = base;</b>
+<b class="nc"><i>178</i>&nbsp;        }</b>
+<i>179</i>&nbsp;
+<i>180</i>&nbsp;        public int compare(String a, String b) {
+<b class="nc"><i>181</i>&nbsp;            if (base.get(a) &lt;= base.get(b)) {</b>
+<b class="nc"><i>182</i>&nbsp;                return -1;</b>
+<i>183</i>&nbsp;            } else {
+<b class="nc"><i>184</i>&nbsp;                return 1;</b>
+<i>185</i>&nbsp;            }
+<i>186</i>&nbsp;        }
+<i>187</i>&nbsp;    }
+<i>188</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-08-31 12:34</div>
+</div>
+</body>
+</html>
