@@ -49,13 +49,9 @@ class ArtifactDAOTest {
         mockResultSet = spy(ResultSet.class);
         mockPreparedStatement = mock(PreparedStatement.class);
     }
-
-
+    
     @Test
     public void testLoadArtifact() throws SQLException {
-
-        new Artifact(1, true,
-                "Dragon", "something", 1000);
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockPreparedStatement.executeQuery(anyString())).thenReturn(mockResultSet);
         when(mockSqlQueryHandler.executeQuery(mockPreparedStatement.toString())).
@@ -66,12 +62,10 @@ class ArtifactDAOTest {
         when(mockResultSet.getInt("price")).thenReturn(1000);
 
         Artifact artifact = artifactDAO.loadArtifact(1);
-        String expected = artifact.getName();
-        String actual = mockResultSet.getString("name");
+        String actual = artifact.getName();
+        String expected = mockResultSet.getString("name");
 
         assertEquals(expected, actual);
-
     }
-
 }
 

@@ -1,6 +1,7 @@
 package com.codecool.queststore.backend.databaseConnection;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,8 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-//@RunWith(MockitoJUnitRunner.class)
+//@Disabled
 class SQLQueryHandlerTest {
 
 
@@ -32,13 +32,12 @@ class SQLQueryHandlerTest {
     }
 
     @Test
-    public void testGetConnection() throws SQLException {
+    public void testExecuteQUery() throws SQLException {
 
         doReturn(mockStatement).when(mockConnection).createStatement();
-        doReturn(mockResultSet).when(mockStatement).executeQuery(any());
+        doReturn(mockResultSet).when(mockStatement).executeQuery("123465");
         ResultSet value = queryHandler.executeQuery("123465");
-        assertEquals(mockResultSet, value);
-        verify(mockConnection.createStatement(), times(1));
+        assertEquals(value, mockResultSet);
     }
 
 
