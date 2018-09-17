@@ -20,6 +20,7 @@ public class QuestDAO {
         this.c = connection;
         this.sqlHandler = sqlHandler;
     }
+    public QuestDAO(){}
 
     public boolean createQuest(String name, String description, int value) {
         try {
@@ -45,8 +46,8 @@ public class QuestDAO {
         String query = "SELECT * FROM quest WHERE quest_id = ?";
         PreparedStatement statement = c.prepareStatement(query);
         statement.setInt(1, id);
-        ResultSet resultSet = SQLQueryHandler.getInstance().executeQuery(statement.toString());
-        resultSet.next();
+        ResultSet resultSet = sqlHandler.executeQuery(statement.toString());
+//        resultSet.next();
         String name = resultSet.getString("name");
         String description = resultSet.getString("description");
         int value = resultSet.getInt("value");
