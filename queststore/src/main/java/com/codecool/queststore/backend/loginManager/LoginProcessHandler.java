@@ -1,10 +1,5 @@
 package com.codecool.queststore.backend.loginManager;
-
 import com.codecool.queststore.backend.dao.LoginDAO;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.sql.SQLException;
 
 public class LoginProcessHandler {
 
@@ -15,7 +10,6 @@ public class LoginProcessHandler {
     }
 
     public String loginProcess(String login, String password, PasswordManager passwordManager) {
-//        PasswordManager passwordManager = new PasswordManager();
         try {
             String hashedPassword = loginDAO.getPasswordBy(login);
             if (passwordManager.validatePassword(password, hashedPassword)) {

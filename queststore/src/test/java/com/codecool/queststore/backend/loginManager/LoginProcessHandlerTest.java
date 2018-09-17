@@ -18,16 +18,21 @@ class LoginProcessHandlerTest {
 
     @InjectMocks private LoginProcessHandler mockLoginHandler;
 
-    @Mock private LoginDAO mockLoginDAO;
-    @Mock private PasswordManager mockPasswordManager;
+    @Mock
+    private LoginDAO mockLoginDAO;
+
+    @Mock
+    private PasswordManager mockPasswordManager;
+
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
+
     @Test
-    public void testLoginProcessSuccessful() throws InvalidKeySpecException, NoSuchAlgorithmException, SQLException {
+    void testLoginProcessSuccessful() throws InvalidKeySpecException, NoSuchAlgorithmException, SQLException {
         when(mockLoginDAO.getPasswordBy("1")).thenReturn("hashedPass");
         when(mockPasswordManager.validatePassword("pass",
                 "hashedPass")).thenReturn(true);
@@ -38,7 +43,7 @@ class LoginProcessHandlerTest {
     }
 
     @Test
-    public void testLoginProcessFailure() throws SQLException, InvalidKeySpecException, NoSuchAlgorithmException {
+    void testLoginProcessFailure() throws SQLException, InvalidKeySpecException, NoSuchAlgorithmException {
         when(mockLoginDAO.getPasswordBy("1")).thenReturn("hashedPass");
         when(mockPasswordManager.validatePassword("pass",
                 "hashedPass")).thenReturn(false);
