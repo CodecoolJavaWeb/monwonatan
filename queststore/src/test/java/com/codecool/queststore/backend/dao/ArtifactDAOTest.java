@@ -49,7 +49,7 @@ class ArtifactDAOTest {
         mockResultSet = spy(ResultSet.class);
         mockPreparedStatement = mock(PreparedStatement.class);
     }
-    
+
     @Test
     public void testLoadArtifact() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
